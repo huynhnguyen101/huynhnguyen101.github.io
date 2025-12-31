@@ -1,12 +1,10 @@
-
 <!doctype html>
 <html lang="en">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>QR Code Scanner</title>
+  <title>Find My Phone by Clap</title>
 
-  <!-- Nếu muốn giống “đậm & tròn” hơn, dùng font online (có mạng) -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&display=swap" rel="stylesheet">
@@ -16,91 +14,66 @@
       --bg1:#eaf4ff;
       --bg2:#dfefff;
       --ink:#0b0f19;
-      --muted:#465064;
+      --muted:#475269;
       --blue:#2f5bff;
-      --card:#ffffffb8;
+      --card:#ffffffc2;
       --shadow: 0 18px 50px rgba(0,0,0,.12);
       --radius: 22px;
-
       --max: 1120px;
       --pad: 22px;
     }
     *{box-sizing:border-box}
-    html,body{height:100%}
     body{
       margin:0;
-      font-family: "Plus Jakarta Sans", system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      font-family:"Plus Jakarta Sans",system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;
       color:var(--ink);
       background: linear-gradient(180deg, var(--bg2) 0%, var(--bg1) 45%, #f7fbff 100%);
       overflow-x:hidden;
     }
-
-    /* subtle squares */
-    .bg-squares:before{
+    .bg:before{
       content:"";
-      position:fixed;
-      inset:-120px;
+      position:fixed; inset:-120px;
       background:
-        radial-gradient(closest-side, rgba(47,91,255,.08), transparent 70%) 10% 10%/520px 520px,
-        radial-gradient(closest-side, rgba(47,91,255,.07), transparent 70%) 80% 25%/560px 560px,
+        radial-gradient(closest-side, rgba(47,91,255,.08), transparent 70%) 12% 12%/520px 520px,
+        radial-gradient(closest-side, rgba(47,91,255,.07), transparent 70%) 82% 20%/560px 560px,
         linear-gradient(90deg, rgba(0,0,0,.03) 1px, transparent 1px) 0 0/140px 140px,
         linear-gradient(0deg, rgba(0,0,0,.03) 1px, transparent 1px) 0 0/140px 140px;
-      opacity:.45;
-      pointer-events:none;
-      filter: blur(0px);
+      opacity:.45; pointer-events:none;
     }
-
+    .wrap{max-width:var(--max); margin:0 auto; padding:0 var(--pad);}
     a{color:inherit; text-decoration:none}
-    .wrap{max-width:var(--max); margin:0 auto; padding: 0 var(--pad);}
 
     header{
-      position:sticky;
-      top:0;
-      z-index:10;
+      position:sticky; top:0; z-index:10;
       backdrop-filter: blur(10px);
       background: rgba(233,244,255,.55);
-      border-bottom: 1px solid rgba(0,0,0,.06);
+      border-bottom:1px solid rgba(0,0,0,.06);
     }
     .nav{
-      display:flex;
-      align-items:center;
-      justify-content:space-between;
-      gap:14px;
-      padding: 14px 0;
+      display:flex; align-items:center; justify-content:space-between; gap:14px;
+      padding:14px 0;
     }
     .brand{display:flex; align-items:center; gap:12px; min-width:240px;}
-    .brand img{
-      width:34px;height:34px;border-radius:9px;
-      box-shadow: 0 10px 20px rgba(0,0,0,.12);
-    }
-    .brand .t{
-      font-weight:800;
-      letter-spacing:-.2px;
-      font-size:18px;
-      white-space:nowrap;
-    }
+    .brand img{width:34px;height:34px;border-radius:9px; box-shadow:0 10px 20px rgba(0,0,0,.12)}
+    .brand .t{font-weight:800; letter-spacing:-.2px; font-size:18px; white-space:nowrap}
     .links{display:flex; gap:28px; align-items:center; font-weight:700}
     .links a{opacity:.9}
     .links a:hover{opacity:1}
 
-    /* sections */
-    section{padding: 56px 0;}
-    .hero{
-      padding: 42px 0 18px;
-    }
+    section{padding:56px 0;}
+    .hero{padding:42px 0 18px;}
     .grid2{
       display:grid;
       grid-template-columns: 1.05fr .95fr;
-      gap: 44px;
+      gap:44px;
       align-items:center;
     }
-
     .h1{
       font-size: clamp(38px, 5vw, 72px);
       font-weight: 800;
       line-height: 1.02;
       letter-spacing: -1px;
-      margin: 0 0 18px;
+      margin: 0 0 14px;
     }
     .h2{
       font-size: clamp(28px, 3.2vw, 54px);
@@ -116,26 +89,30 @@
       font-weight:600;
     }
     .accent{color:var(--blue); font-weight:800}
-    .play{
-      display:inline-flex;
-      align-items:center;
-      gap:12px;
-      margin-top: 8px;
+
+    .playRow{display:flex; gap:12px; flex-wrap:wrap; align-items:center; margin-top:10px;}
+    .btn{
+      display:inline-flex; align-items:center; justify-content:center;
+      padding:12px 16px;
+      border-radius: 14px;
+      border:1px solid rgba(0,0,0,.08);
+      background: rgba(255,255,255,.55);
+      box-shadow: 0 12px 30px rgba(0,0,0,.12);
+      font-weight:800;
     }
-    .play img{
-      height: 44px;
-      width:auto;
-      border-radius: 10px;
-      box-shadow: 0 10px 28px rgba(0,0,0,.14);
-      background:#000;
+    .btn.primary{
+      background: linear-gradient(135deg, rgba(47,91,255,.95), rgba(47,91,255,.72));
+      color:#fff;
+      border-color: rgba(47,91,255,.35);
     }
 
     .phone{
-      width: 100%;
-      max-width: 520px;
+      width:100%;
+      max-width:520px;
       margin-left:auto;
-      filter: drop-shadow(0 30px 40px rgba(0,0,0,.18));
       border-radius: 22px;
+      box-shadow: var(--shadow);
+      background:#fff;
     }
 
     .card{
@@ -143,15 +120,38 @@
       border: 1px solid rgba(0,0,0,.06);
       border-radius: var(--radius);
       box-shadow: var(--shadow);
-      padding: 28px;
+      padding: 24px;
     }
 
-    /* alternate */
     .rev .grid2{grid-template-columns: .95fr 1.05fr;}
-    .rev .media{order:1;}
     .media img{width:100%; border-radius: 18px; box-shadow: var(--shadow);}
 
-    /* stats */
+    .bullets{
+      display:grid;
+      gap:10px;
+      font-weight:700;
+      color:#2a3446;
+      margin-top:14px;
+    }
+
+    .gallery{
+      display:flex;
+      gap:12px;
+      overflow:auto;
+      padding: 14px 0 6px;
+      -webkit-overflow-scrolling: touch;
+    }
+    .shot{
+      flex: 0 0 auto;
+      width: 190px;
+      border-radius: 18px;
+      box-shadow: var(--shadow);
+      border:1px solid rgba(0,0,0,.06);
+      background:#fff;
+      overflow:hidden;
+    }
+    .shot img{width:100%; height:auto; display:block}
+
     .stats{
       text-align:center;
       padding: 70px 0 56px;
@@ -163,41 +163,17 @@
       margin:0 0 6px;
     }
     .statsRow{
-      display:flex;
-      gap: 46px;
-      justify-content:center;
-      flex-wrap:wrap;
-      margin-top: 34px;
+      display:flex; gap:46px; justify-content:center; flex-wrap:wrap;
+      margin-top:34px;
     }
     .stat{
       min-width: 260px;
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      gap: 18px;
-      padding: 18px 14px;
+      display:flex; align-items:center; justify-content:center;
+      gap:18px; padding:18px 14px;
     }
-    .stat .num{
-      font-weight: 900;
-      font-size: 44px;
-      letter-spacing:-.6px;
-    }
-    .stat .lbl{
-      text-align:left;
-      color:var(--muted);
-      font-weight:700;
-      line-height:1.2;
-    }
-    .laurel{
-      width: 56px; height: 56px;
-      opacity:.75;
-    }
-    .stars{
-      display:flex; gap:6px; margin-top:6px;
-      color:#f5b301;
-      font-size: 18px;
-      justify-content:flex-start;
-    }
+    .stat .num{font-weight:900; font-size:44px; letter-spacing:-.6px;}
+    .stat .lbl{color:var(--muted); font-weight:700; line-height:1.2; text-align:left}
+    .stars{display:flex; gap:6px; margin-top:6px; color:#f5b301; font-size:18px;}
 
     footer{
       padding: 26px 0 38px;
@@ -205,36 +181,30 @@
       background: rgba(255,255,255,.35);
     }
     .foot{
-      display:flex;
-      justify-content:space-between;
-      gap: 18px;
-      flex-wrap:wrap;
-      align-items:center;
-      color: #6a7386;
-      font-weight:700;
+      display:flex; justify-content:space-between; gap:18px; flex-wrap:wrap; align-items:center;
+      color:#6a7386; font-weight:700;
     }
-    .foot a{opacity:.95}
-    .foot a:hover{opacity:1}
     .foot .left{display:flex; gap:48px; flex-wrap:wrap}
     .foot .right{text-align:right}
 
-    /* mobile */
     @media (max-width: 920px){
-      .grid2{grid-template-columns: 1fr; gap: 24px;}
-      .phone{max-width: 520px; margin: 0;}
+      .grid2{grid-template-columns: 1fr; gap: 22px;}
+      .rev .grid2{grid-template-columns: 1fr;}
+      .phone{max-width:520px; margin:0;}
       .links{gap:18px}
       .foot .right{text-align:left}
+      .shot{width: 160px;}
     }
   </style>
 </head>
 
-<body class="bg-squares">
+<body class="bg">
 <header>
   <div class="wrap">
     <div class="nav">
       <div class="brand">
-        <img src="img/app-icon.png" alt="app icon">
-        <div class="t" id="navTitle">QR Code Scanner & Scanner App</div>
+        <img id="appIconTop" src="" alt="app icon">
+        <div class="t" id="navTitle">Find My Phone by Clap</div>
       </div>
       <div class="links">
         <a href="privacy.html">Privacy Policy</a>
@@ -250,27 +220,34 @@
     <div class="wrap">
       <div class="grid2">
         <div>
-          <div style="display:flex;justify-content:center;margin:10px 0 24px;">
-            <div class="card" style="padding:14px 18px; border-radius:18px; display:inline-flex; gap:14px; align-items:center;">
-              <img src="img/app-icon.png" alt="" style="width:54px;height:54px;border-radius:16px;">
-              <div style="font-weight:900;font-size:20px; letter-spacing:-.2px;">QR Code Scanner</div>
-            </div>
+          <h1 class="h1">Find My Phone<br>by Clap</h1>
+          <p class="sub">
+            Lost your phone again? No worries! Just <span class="accent">clap your hands</span> and
+            your phone will ring loudly so you can find it in seconds.
+          </p>
+
+          <div class="playRow">
+            <a class="btn primary" id="btnPlay">Download on Google Play</a>
+            <a class="btn" id="btnMarket">Open in Play Store</a>
           </div>
 
-          <h1 class="h1">QR Code Scanner<br>&amp; Scanner App</h1>
-
-          <div class="play">
-            <!-- Nếu bạn không có ảnh badge: thay img bằng link online của Google -->
-            <a id="playLink1" href="#">
-              <img src="img/google-play-badge.png" alt="Get it on Google Play">
-            </a>
+          <div class="card" style="margin-top:18px;">
+            <div style="font-weight:900; font-size:18px; margin-bottom:8px;">Why you’ll love it</div>
+            <div class="sub" style="margin:0;">
+              ✔ Super easy to use<br>
+              ✔ Fast response to claps<br>
+              ✔ Ideal for home, office, or travel
+            </div>
           </div>
         </div>
 
         <div class="media">
-          <img class="phone" src="img/hero-phone.png" alt="App preview">
+          <img class="phone" id="heroImg" src="" alt="App preview" loading="lazy">
         </div>
       </div>
+
+      <!-- mini gallery -->
+      <div class="gallery" id="gallery" aria-label="screenshots"></div>
     </div>
   </section>
 
@@ -279,11 +256,11 @@
     <div class="wrap">
       <div class="grid2">
         <div class="media">
-          <img src="img/feature1.png" alt="feature 1">
+          <img id="feature1Img" src="" alt="feature 1" loading="lazy">
         </div>
         <div>
           <h2 class="h2">Easy-to-Use</h2>
-          <p class="sub">Scan and get results <span class="accent">instantly</span></p>
+          <p class="sub">Clap and get results <span class="accent">instantly</span></p>
         </div>
       </div>
     </div>
@@ -294,15 +271,27 @@
     <div class="wrap">
       <div class="grid2">
         <div>
-          <h2 class="h2">Supports All<br>QR &amp; Barcode Formats</h2>
+          <h2 class="h2">Key Features</h2>
           <p class="sub">
-            <span class="accent">All types</span> of QR codes/barcodes,
-            including Wi-Fi, contacts, URL, products, text, books, E-mail,
-            location, calendar, etc.
+            <span class="accent">Clap</span> to find your phone.
+            Triggers a loud alarm even on silent or vibrate mode, works with the screen off,
+            and supports adjustable sensitivity.
           </p>
+
+          <div class="card">
+            <div class="bullets">
+              <div>🔊 Clap to find your phone</div>
+              <div>🎵 Loud ringtone even on silent mode</div>
+              <div>📱 Works with screen off</div>
+              <div>⚙️ Adjustable sensitivity</div>
+              <div>🔋 Battery-friendly operation</div>
+              <div>🌐 No internet required</div>
+            </div>
+          </div>
         </div>
+
         <div class="media">
-          <img src="img/collage.png" alt="formats collage">
+          <img id="feature2Img" src="" alt="feature 2" loading="lazy">
         </div>
       </div>
     </div>
@@ -311,46 +300,27 @@
   <!-- STATS -->
   <section class="stats">
     <div class="wrap">
-      <div class="statsTitle">Fast &amp; Simple<br><span class="accent">QR &amp; Barcode Scanner</span></div>
+      <div class="statsTitle">Fast &amp; Simple<br><span class="accent">Clap Finder</span></div>
 
       <div class="statsRow">
         <div class="stat">
-          <svg class="laurel" viewBox="0 0 64 64" fill="none">
-            <path d="M22 56c-8-6-12-15-12-26C10 17 15 9 22 6" stroke="#f5b301" stroke-width="4" stroke-linecap="round"/>
-            <path d="M20 14l-7 2m8 6l-8 1m9 6l-8 0m10 7l-7-2m7 8l-6-4" stroke="#f5b301" stroke-width="3" stroke-linecap="round"/>
-          </svg>
           <div>
             <div class="num" id="statUsers">100M+</div>
             <div class="lbl">Satisfied Users</div>
           </div>
-          <svg class="laurel" viewBox="0 0 64 64" fill="none" style="transform:scaleX(-1)">
-            <path d="M22 56c-8-6-12-15-12-26C10 17 15 9 22 6" stroke="#f5b301" stroke-width="4" stroke-linecap="round"/>
-            <path d="M20 14l-7 2m8 6l-8 1m9 6l-8 0m10 7l-7-2m7 8l-6-4" stroke="#f5b301" stroke-width="3" stroke-linecap="round"/>
-          </svg>
         </div>
-
         <div class="stat">
-          <svg class="laurel" viewBox="0 0 64 64" fill="none">
-            <path d="M22 56c-8-6-12-15-12-26C10 17 15 9 22 6" stroke="#f5b301" stroke-width="4" stroke-linecap="round"/>
-            <path d="M20 14l-7 2m8 6l-8 1m9 6l-8 0m10 7l-7-2m7 8l-6-4" stroke="#f5b301" stroke-width="3" stroke-linecap="round"/>
-          </svg>
           <div>
             <div class="num" id="statRatings">500K</div>
             <div class="lbl">5-Star Ratings
-              <div class="stars" aria-label="stars">★★★★★</div>
+              <div class="stars">★★★★★</div>
             </div>
           </div>
-          <svg class="laurel" viewBox="0 0 64 64" fill="none" style="transform:scaleX(-1)">
-            <path d="M22 56c-8-6-12-15-12-26C10 17 15 9 22 6" stroke="#f5b301" stroke-width="4" stroke-linecap="round"/>
-            <path d="M20 14l-7 2m8 6l-8 1m9 6l-8 0m10 7l-7-2m7 8l-6-4" stroke="#f5b301" stroke-width="3" stroke-linecap="round"/>
-          </svg>
         </div>
       </div>
 
-      <div style="margin-top:22px;">
-        <a id="playLink2" href="#" style="display:inline-flex; align-items:center; gap:12px;">
-          <img src="img/google-play-badge.png" alt="Get it on Google Play" style="height:44px;border-radius:10px;box-shadow:0 10px 28px rgba(0,0,0,.14);background:#000;">
-        </a>
+      <div class="playRow" style="justify-content:center; margin-top:18px;">
+        <a class="btn primary" id="btnPlay2">Download on Google Play</a>
       </div>
     </div>
   </section>
@@ -362,29 +332,35 @@
       <div class="left">
         <a href="terms.html">Terms of Use</a>
         <a href="privacy.html">Privacy Policy</a>
-        <a id="downloadLink" href="#">Download</a>
+        <a id="downloadLink">Download</a>
       </div>
-
       <div class="right">
-        <div>Support Email: <span id="supportEmail">freeqrfeedback@gmail.com</span></div>
-        <div style="margin-top:6px;">© <span id="copyrightName">QR Code Scanner</span>. All Rights Reserved.</div>
+        <div>Support Email: <span id="supportEmail">YOUR_SUPPORT_EMAIL@gmail.com</span></div>
+        <div style="margin-top:6px;">© <span id="copyrightName">Find My Phone by Clap</span>. All Rights Reserved.</div>
       </div>
     </div>
   </div>
 </footer>
 
 <script>
-  // ====== CONFIG: sửa nhanh tại đây ======
+  // ===== CONFIG: sửa đúng email + (nếu cần) tên file ảnh =====
   const CONFIG = {
-    appName: "QR Code Scanner",
-    navTitle: "QR Code Scanner & Scanner App",
-    packageName: "com.your.app.package",
-    playStoreUrl: "https://play.google.com/store/apps/details?id=com.your.app.package",
-    supportEmail: "freeqrfeedback@gmail.com",
+    appName: "Find My Phone by Clap",
+    navTitle: "Find My Phone by Clap",
+    packageName: "com.find.your.phone.app.by.clap",
+    playStoreUrl: "https://play.google.com/store/apps/details?id=com.find.your.phone.app.by.clap",
+    supportEmail: "YOUR_SUPPORT_EMAIL@gmail.com",
+
+    // ảnh của bạn (GitHub Pages)
+    imgBase: "https://huynhnguyen101.github.io/image/",
+    icon: "ic.jpg",
+    shots: ["ss1.jpg","ss2.jpg","ss3.jpg","ss4.jpg","ss5.jpg","ss6.jpg"],
+
+    // stats (tuỳ chỉnh)
     stats: { users: "100M+", ratings: "500K" }
   };
 
-  // apply config
+  // apply basic text
   document.title = CONFIG.appName;
   document.getElementById("navTitle").textContent = CONFIG.navTitle;
   document.getElementById("supportEmail").textContent = CONFIG.supportEmail;
@@ -392,31 +368,48 @@
   document.getElementById("statUsers").textContent = CONFIG.stats.users;
   document.getElementById("statRatings").textContent = CONFIG.stats.ratings;
 
-  // links
-  const links = ["playLink1","playLink2","downloadLink"];
-  links.forEach(id => {
-    const a = document.getElementById(id);
-    if (!a) return;
-    // ưu tiên mở bằng Play app nếu chạy trong Android
-    a.href = "market://details?id=" + CONFIG.packageName;
-    a.setAttribute("data-web", CONFIG.playStoreUrl);
+  // images
+  const iconUrl = CONFIG.imgBase + CONFIG.icon;
+  document.getElementById("appIconTop").src = iconUrl;
+
+  // chọn ảnh: hero = ss1, feature1 = ss2, feature2 = ss6 (bạn đổi theo ý)
+  const hero = CONFIG.imgBase + (CONFIG.shots[0] || "");
+  const f1   = CONFIG.imgBase + (CONFIG.shots[1] || "");
+  const f2   = CONFIG.imgBase + (CONFIG.shots[5] || CONFIG.shots[0] || "");
+
+  document.getElementById("heroImg").src = hero;
+  document.getElementById("feature1Img").src = f1;
+  document.getElementById("feature2Img").src = f2;
+
+  // gallery screenshots
+  const gal = document.getElementById("gallery");
+  (CONFIG.shots || []).forEach(name => {
+    const url = CONFIG.imgBase + name;
+    const div = document.createElement("div");
+    div.className = "shot";
+    div.innerHTML = `<img src="${url}" alt="screenshot" loading="lazy">`;
+    gal.appendChild(div);
   });
 
-  // fallback: nếu market:// không chạy (desktop), chuyển sang https
-  document.addEventListener("click", (e) => {
-    const a = e.target.closest("a");
-    if (!a) return;
+  // play links: market:// + fallback
+  const marketUrl = "market://details?id=" + CONFIG.packageName;
 
-    if (a.href && a.href.startsWith("market://")) {
-      // để WebView/Android xử lý, nhưng nếu là browser thường thì fallback
-      setTimeout(() => {
-        // Nếu không rời trang sau 300ms thì mở web
-        if (document.visibilityState === "visible") {
-          const web = a.getAttribute("data-web");
-          if (web) window.location.href = web;
-        }
-      }, 300);
-    }
+  function openPlayPreferMarket(){
+    // set href to market for android, but fallback to web after short delay if not opened
+    window.location.href = marketUrl;
+    setTimeout(() => {
+      // if still here, open web
+      window.location.href = CONFIG.playStoreUrl;
+    }, 350);
+  }
+
+  ["btnPlay","btnMarket","btnPlay2","downloadLink"].forEach(id => {
+    const el = document.getElementById(id);
+    if (!el) return;
+    el.addEventListener("click", (e) => {
+      e.preventDefault();
+      openPlayPreferMarket();
+    });
   });
 </script>
 </body>
